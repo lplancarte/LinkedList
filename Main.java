@@ -57,10 +57,12 @@ class Main{
 		HurricaneRowData tett = new HurricaneRowData(1970,100,1,1,1);
 		HurricaneRowData tess = new HurricaneRowData(1980,200,2,2,2);
 		HurricaneRowData terr = new HurricaneRowData(1990,300,3,3,3);
+		HurricaneRowData tepp = new HurricaneRowData(2000,400,4,4,4);
 		data.insert(tett);
 		data.insert(tess);
 		data.insert(terr);
-		data.toString();
+		data.insert(tepp);
+		System.out.println(data.toString());
 
 	}//end main()
 
