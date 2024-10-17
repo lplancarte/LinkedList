@@ -7,16 +7,15 @@ Description: Doubly Linked List
 
 public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 {
-	HurricaneRowData data;
-	DoublyLinkedSortedList next;
-	DoublyLinkedSortedList prev;
-	DoublyLinkedSortedList head;
-	DoublyLinkedSortedList tail;
+	private HurricaneRowData data;
+	private DoublyLinkedSortedList next;
+	private DoublyLinkedSortedList prev;
+	private static DoublyLinkedSortedList head = new DoublyLinkedSortedList();
+	private static DoublyLinkedSortedList tail = new DoublyLinkedSortedList();
+
 	//CONSTRUCTOR
 	public DoublyLinkedSortedList(){
 		this.data = null;
-		this.head = null;
-		this.tail = null;
 		this.next = null;
 		this.prev = null;
 	}
@@ -92,28 +91,45 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 	public void insert(HurricaneRowData newValue){
 		if(newValue == null)
 			return;
-		DoublyLinkedSortedList temp = new DoublyLinkedSortedList();
-		temp.data = newValue;
-		//check if newValue had lower ace index than head
-		if(head.data.getAceIndex() > temp.data.getAceIndex()){
-			temp.next = this.head;
-			this.head.prev = temp;
-			temp.prev = null;
-			this.head = temp;
+	
+		//if list is empty set newValue as head and tail
+		if(head.data == null){
+			head.data = newValue;
+			tail.data = newValue;
+			head.next = null;
+			tail.prev = null;
+			System.out.println("HEAD ADDED");
+			return;
 		}else{
-			//ace value is higher than head; iterate up
-			temp = this.head;
-			while(temp.data != null){
-				if(temp.next.data.getAceIndex() >= temp.data.getAceIndex()){
-					//link to next link
-					temp.next = temp.next.prev;
-					temp.next.prev = temp;
-					//link to prev link
-					temp.prev = temp.prev.next;
-					temp.prev.next = temp;
+	 		DoublyLinkedSortedList link = new DoublyLinkedSortedList();
+			//check if newValue had lower ace index than head
+			if(head.data.getAceIndex() > newValue.getAceIndex()){
+				link.next = head;
+				head.prev = link;
+				link.prev = null;
+				head = link;
+			}else{
+				//ace value is higher than head; iterate up
+				DoublyLinkedSortedList temp = head;
+				while(temp.next!= null){
+					if(temp.data.getAceIndex() < newValue.getAceIndex() ){
+						//when our value is bigger we set to the previous
+						//temp.prev.next = link;
+						//link.prev = temp.prev.next;
+						link.next = temp;
+						temp.prev = link;
+					}
+					temp = temp.next;
 				}
-				temp = temp.next;
+				//add to end of list, new tail
+				link.prev = tail;
+				tail.next = link;
+
+				link.next = null;
+				tail = temp; //set new tail
+				System.out.println("TAIL ADDED"); 
 			}
+			System.out.println("INSERTED"); 
 		}
 	}
 	
@@ -122,11 +138,12 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 		String toConsole= null;
 		String newLine;
 		String header = "All data in order of Ace:\n";
-		DoublyLinkedSortedList iteratorFwd = this.head;
+		DoublyLinkedSortedList iteratorFwd = head;
 		toConsole.concat(header);
 		while(iteratorFwd.hasNext()){
 			newLine = iteratorFwd.data.toString() + "\n";
 			toConsole.concat(newLine);
+			iteratorFwd = iteratorFwd.next;
 		}
 		return toConsole;
 	}

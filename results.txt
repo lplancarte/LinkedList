@@ -1,0 +1,2 @@
+Year with Maximum Ace Index
+    2005,     248,      28,      15,       7

@@ -34,6 +34,8 @@ Analyzer - Holds Analyzed Data from ArrayList of Hurricane Row Data objects
 
 class Main{
 	static private ArrayList<HurricaneRowData> hurricaneList = null;
+	static private DoublyLinkedSortedList data = new DoublyLinkedSortedList();
+
 	static private Analyzer maxAceIndexYear = null;
 	static private String inputFileDefault = "ace.csv";
 	static private String outputFile = "results.txt";
@@ -47,10 +49,18 @@ class Main{
 		}
 		int year = findMaxAceIndexYear(hurricaneList);
 		System.out.println("Year with Maximum Ace Index via method:" + year);
-		displayMaxYearToTerminal();
+		//displayMaxYearToTerminal();
 		System.out.println("Results saved as " +outputFile);
 		printOutputFile();
+		//System.out.println(data.toString());
 		System.out.println("Thank you. Goodbye\n");
+		HurricaneRowData tett = new HurricaneRowData(1970,100,1,1,1);
+		HurricaneRowData tess = new HurricaneRowData(1980,200,2,2,2);
+		HurricaneRowData terr = new HurricaneRowData(1990,300,3,3,3);
+		data.insert(tett);
+		data.insert(tess);
+		data.insert(terr);
+		data.toString();
 
 	}//end main()
 
@@ -110,17 +120,18 @@ class Main{
 
 				//split row into col
 				if(line.isEmpty()){continue;};
-				String[] data = line.split(",");
+				String[] lineData = line.split(",");
 				//Once split, construct HRD object and place into ArrayList
 				hrd = new HurricaneRowData(
-						Integer.parseInt(data[0]),
-						Integer.parseInt(data[1]),
-						Integer.parseInt(data[2]),
-						Integer.parseInt(data[3]),
-						Integer.parseInt(data[4])
+						Integer.parseInt(lineData[0]),
+						Integer.parseInt(lineData[1]),
+						Integer.parseInt(lineData[2]),
+						Integer.parseInt(lineData[3]),
+						Integer.parseInt(lineData[4])
 					);
 				//System.out.println(hrd.toString()); //Debug line
 				hurricaneList.add(hrd); //add object to list
+				//data.insert(hrd); //add object to DoublyLinkedSortedList
 			}
 			maxAceIndexYear = new Analyzer(hurricaneList); //Analyze data
 		}catch(Exception e){};
