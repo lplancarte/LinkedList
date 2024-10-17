@@ -62,14 +62,35 @@ class HurricaneRowData{
 	//toString()
 	@Override
 	public String toString(){
-		return 
-		("Year:      "+ getYear()+ 
-		 "\nAce Index:  "+ getAceIndex() 
-		//" \nNumber of Tropical Storms: " +getNumTropicalStorms()+
-		//" \nNumber of Hurricanes 1-5: " + getNumHurricaneAll()+
-		//" \nNumber of Hurricanes 3-5: " + getNumHurricaneMaj()
+		return String.format
+		("%8d,%8d,%8d,%8d,%8d",
+		getYear(),
+		getAceIndex(),
+		getNumTropicalStorms(),
+		getNumHurricaneAll(),
+		getNumHurricaneMaj()
 		);
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if(o == this)
+			return true;
+		if(!(o instanceof HurricaneRowData))
+			return false;
+
+		HurricaneRowData hrd = (HurricaneRowData) o;
+		return (
+				this.year == hrd.getYear() &&
+				this.aceIndex == hrd.getAceIndex() &&
+				this.numTropicalStorms == hrd.getNumTropicalStorms() &&
+				this.numHurricaneAll == hrd.getNumHurricaneAll() &&
+				this.numHurricaneMaj == hrd.getNumHurricaneMaj()
+		);
+	}
+
+	
+
 }//end class
+
 
