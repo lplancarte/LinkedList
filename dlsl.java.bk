@@ -95,20 +95,27 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 		//Create new link
 			DoublyLinkedSortedList link = new DoublyLinkedSortedList();
 			link.data = newValue;
+		//}
 
-			//check if head is null
+		//Looking at a solution on geeksforgeeks.org o
+		/** check for when a copy of the head's next is null
+			this would indicate that we have reached a tail.
+			The inverse would be true in finding a head where its
+			prev is null.
+		*/
+		//check if head is null
 		if(head.data == null){
 			head = link;
-			System.out.println("Head Added");
-			System.out.println(head.data.toString());
+			//System.out.println("Head Added");
+			//System.out.println(head.data.toString());
 		}else{
 			//set up pointer to head; get Ace Index from head to compare
 			//to newAce
 			DoublyLinkedSortedList current = head;
 			int newAce = link.data.getAceIndex();
 			int curAce = current.data.getAceIndex();
-
-			if(newAce > curAce){ //place at front
+			
+			if(newAce < curAce){ //place at front
 				while(current.prev != null){
 					current = current.prev;
 				}
@@ -116,36 +123,64 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 				link.next = current;
 				//set new head
 				head = link;
+				//System.out.println("NEW HEAD: "+head.data.toString());
 
-			}else if(newAce < getLast().data.getAceIndex()){ //place at end
+			//larger than head but smaller than tail; lies in between
+			}else if(newAce > curAce && newAce < getLast().data.getAceIndex()){ 
+				//look for link with a larger ace index than newAce
+				while(current.data.getAceIndex() < newAce){
+					current = current.next;
+				}
+				//This might be the tail, to avoid null exception error
+				//wrap in try catch.
+				//First Link
+				try{
+					if(current.prev.next != null){
+						current.prev.next = link;
+						link.next = current;
+					}
+				}catch(Exception e){};
+
+				//Second link
+				current.prev = link;
+				link.next = current;
+
+				//Debug Printing
+				//printInsert(newAce);
+				//System.out.println(link.data.toString());
+
+
+			}else{ //place at end
 				while(current.next != null){
 					current = current.next;
 				}
 				current.next = link;
 				link.prev = current;
-
-			}else{
-				//place in the middle
-				while(current.data.getAceIndex() > newAce){
-					current = current.next;
-				}
-				//set current to one before
-//				System.out.println("Curr: "+current.data.toString());
-//				System.out.println("Prev: "+current.prev.data.toString());	
-				current.prev.next = link;
-				link.prev = current.prev;
-				
-				current.prev = link;
-				link.next = current;
-
-				
-
-				
-
 			}
-		}
-	}
 
+
+			//ADD AT THE END
+			//current.next = link; //start setting up our 1st link
+			//link.prev = current; //end setting up our 2nd link
+
+			//ADD AT THE START
+			//current.prev = link;
+			//link.next = current;
+
+			/**	recap: we check to see if we have a list, by checking
+				for a head. if one is not found, set it as a new object.
+				(this lives on the heap?)
+				we then iterate using a temporary variable named current
+				(lives on the stack? and points to our object in the list)
+				which will check the next variable for null, indicating the
+				tail. This is then  set as our new tail, by setting a link to
+				the object in the list
+			*/
+
+		}
+
+
+	}
 
 	//Debugging tool, tracking what was inserted
 	public void printInsert(int newAce){
