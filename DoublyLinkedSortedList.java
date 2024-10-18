@@ -89,78 +89,37 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 	
 	//Insert a new DoublyLinkedSortedList element that has the given newValue in order in the list.
 	public void insert(HurricaneRowData newValue){
-		if(newValue == null)
-			return;
+		DoublyLinkedSortedList link = new DoublyLinkedSortedList();
+		if(newValue != null){
+			link.data = newValue;
+		}
 		
 		if(head.data == null){
 			head.data = newValue;
 			head.next = tail;
-			System.out.println("HEAD ADDED");
+			System.out.println("head added");
+			System.out.println(head.data.toString());
 		}
 		
 		if(tail.data == null){
 			tail.data = newValue;
 			tail.prev = head;
-			System.out.println("TAIL ADDED");
-		}else{
-			
-			DoublyLinkedSortedList link = new DoublyLinkedSortedList();
+			System.out.println("tail added");
+			System.out.println(tail.data.toString());
+		}else
+		{
+			//Doublylinkedsortedlist link = new Doublylinkedsortedlist();
 			//put in back; new tail
-			link.data = newValue;
-
-			tail.next = link;
+			link.data = newValue; //set data value
 			link.prev = tail;
+			tail.next = link;
+			
 			tail = link; //set new tail;
-			System.out.println("INSERTED BACK");
+			
+			System.out.println("inserted back");
+			System.out.println(tail.data.toString());
 		}
 			
-		
-	/*
-		//if list is empty set newValue as head and tail
-		if(head.data == null){
-			head.data = newValue;
-			tail.data = newValue;
-			head.next = tail;
-			tail.prev = head;
-			head.prev = null;
-			tail.next = null;
-			System.out.println("HEAD ADDED");
-		}else{
-	 		DoublyLinkedSortedList link = new DoublyLinkedSortedList();
-			//check if newValue had lower ace index than head
-			if(head.data.getAceIndex() > newValue.getAceIndex()){
-				//set link as the new head 
-				link.next = head;
-				head.prev = link;
-				link.prev = null;
-				head = link;
-			}else{
-				//ace value is higher than head; iterate up starting at the head
-				DoublyLinkedSortedList temp = head;
-				while(temp.next!= null){
-					if(temp.data.getAceIndex() < newValue.getAceIndex() ){
-						//when our value is bigger we set to the previous
-
-						link.next = temp;
-						temp.prev = link;
-						link.prev = temp.prev.next;
-						temp.prev.next = link;
-						link = temp;
-						link.data = newValue;
-					}
-					temp = temp.next;
-				}
-				//add to end of list, new tail
-				link.prev = tail;
-				tail.next = link;
-
-				link.next = null;
-				tail = temp; //set new tail
-			
-				System.out.println("TAIL ADDED"); 
-			}
-			System.out.println("INSERTED"); 
-		}*/
 		
 	}
 	
@@ -172,7 +131,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 		String header = "All data in order of Ace:\n";
 		DoublyLinkedSortedList iteratorFwd = head;
 		toConsole = toConsole.concat(header);
-		while(iteratorFwd.next != null){
+		while(iteratorFwd.hasNext()){
 			newLine = iteratorFwd.data.toString() + "\n";
 			toConsole = toConsole.concat(newLine);
 			iteratorFwd = iteratorFwd.next;
