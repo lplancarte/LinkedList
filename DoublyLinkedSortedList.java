@@ -89,18 +89,55 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 	
 	//Insert a new DoublyLinkedSortedList element that has the given newValue in order in the list.
 	public void insert(HurricaneRowData newValue){
-		DoublyLinkedSortedList link = new DoublyLinkedSortedList();
-		if(newValue != null){
+		//Create new link
+			DoublyLinkedSortedList link = new DoublyLinkedSortedList();
 			link.data = newValue;
+		//}
+
+		//Looking at a solution on geeksforgeeks.org o
+		/** check for when a copy of the head's next is null
+			this would indicate that we have reached a tail.
+			The inverse would be true in finding a head where its
+			prev is null.
+		*/
+		//check if head is null
+		if(head.data == null){
+			head = link;
+			System.out.println("Head Added");
+			System.out.println(head.data.toString());
+		}else{
+			//Scroll to the end of the list to add
+			DoublyLinkedSortedList current = head;
+			while(current.next != null){
+				current = current.next;
+			}
+			//head sets itself as the next node 
+			//if head was by itself
+
+			//we are now at the tail
+			current.next = link; //start setting up our 1st link
+			link.prev = current; //end setting up our 2nd link
+			System.out.println("Inserted");
+			System.out.println(link.data.toString());
+			/**	recap: we check to see if we have a list, by checking
+				for a head. if one is not found, set it as a new object.
+				(this lives on the heap?)
+				we then iterate using a temporary variable named current
+				(lives on the stack? and points to our object in the list)
+				which will check the next variable for null, indicating the
+				tail. This is then  set as our new tail, by setting a link to
+				the object in the list
+			*/
+			
 		}
-		
+		/*
 		if(head.data == null){
 			head.data = newValue;
 			head.next = tail;
 			System.out.println("head added");
 			System.out.println(head.data.toString());
 		}
-		
+
 		if(tail.data == null){
 			tail.data = newValue;
 			tail.prev = head;
@@ -113,14 +150,14 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 			link.data = newValue; //set data value
 			link.prev = tail;
 			tail.next = link;
-			
+
 			tail = link; //set new tail;
-			
+
 			System.out.println("inserted back");
 			System.out.println(tail.data.toString());
 		}
-			
-		
+
+		*/
 	}
 	
 	//Return the entire list as a multi-line String
@@ -131,11 +168,12 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 		String header = "All data in order of Ace:\n";
 		DoublyLinkedSortedList iteratorFwd = head;
 		toConsole = toConsole.concat(header);
-		while(iteratorFwd.hasNext()){
+		while(iteratorFwd != null){
 			newLine = iteratorFwd.data.toString() + "\n";
 			toConsole = toConsole.concat(newLine);
 			iteratorFwd = iteratorFwd.next;
 		}
+
 		return toConsole;//iteratorFwd.data.toString();
 	}
 

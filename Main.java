@@ -54,14 +54,14 @@ class Main{
 		printOutputFile();
 		//System.out.println(data.toString());
 		System.out.println("Thank you. Goodbye\n");
-		HurricaneRowData tett = new HurricaneRowData(1970,100,1,1,1);
-		HurricaneRowData tess = new HurricaneRowData(1980,200,2,2,2);
-		HurricaneRowData terr = new HurricaneRowData(1990,300,3,3,3);
-		HurricaneRowData tepp = new HurricaneRowData(2000,400,4,4,4);
-		data.insert(tett);
-		data.insert(tess);
-		data.insert(terr);
-		data.insert(tepp);
+		HurricaneRowData test1 = new HurricaneRowData(1970,100,1,1,1);
+		HurricaneRowData test2 = new HurricaneRowData(1980,200,2,2,2);
+		HurricaneRowData test3 = new HurricaneRowData(1990,300,3,3,3);
+		HurricaneRowData test4 = new HurricaneRowData(2000,400,4,4,4);
+		data.insert(test1);
+		data.insert(test2);
+		data.insert(test3);
+		data.insert(test4);
 		System.out.println(data.toString());
 
 	}//end main()
