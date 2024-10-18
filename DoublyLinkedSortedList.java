@@ -67,7 +67,10 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 	
 	//Return a reference to the last DoublyLinkedSortedList element in the list
 	public DoublyLinkedSortedList getLast(){
-		return this.tail;
+		DoublyLinkedSortedList current = head;
+		while(current.next != null)
+			current = current.next;
+		return current;
 	}
 	
 	//Remove the DoublyLinkedSortedList element that has toRemove as its value
@@ -108,15 +111,40 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 		}else{
 			//Scroll to the end of the list to add
 			DoublyLinkedSortedList current = head;
-			while(current.next != null){
-				current = current.next;
+			int newAce = link.data.getAceIndex();
+			int curAce = current.data.getAceIndex();
+			if(newAce < curAce){ //place at front
+				while(current.prev != null){
+					current = current.prev;
+				}
+				current.prev = link;
+				link.next = current;
+				//set new head
+				head = link;
+				System.out.println("NEW HEAD: "+head.data.toString());
+
+			}else{ //place at end
+				while(current.next != null){
+					current = current.next;
+				}
+				current.next = link;
+				link.prev = current;
 			}
+			System.out.println("newAce: "+newAce);
+			
+			
 			//head sets itself as the next node 
 			//if head was by itself
 
+			//ADD AT THE END
 			//we are now at the tail
-			current.next = link; //start setting up our 1st link
-			link.prev = current; //end setting up our 2nd link
+			//current.next = link; //start setting up our 1st link
+			//link.prev = current; //end setting up our 2nd link
+
+			//ADD AT THE START
+			//current.prev = link;
+			//link.next = current;
+
 			System.out.println("Inserted");
 			System.out.println(link.data.toString());
 			/**	recap: we check to see if we have a list, by checking
@@ -128,36 +156,10 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 				tail. This is then  set as our new tail, by setting a link to
 				the object in the list
 			*/
-			
-		}
-		/*
-		if(head.data == null){
-			head.data = newValue;
-			head.next = tail;
-			System.out.println("head added");
-			System.out.println(head.data.toString());
+
 		}
 
-		if(tail.data == null){
-			tail.data = newValue;
-			tail.prev = head;
-			System.out.println("tail added");
-			System.out.println(tail.data.toString());
-		}else
-		{
-			//Doublylinkedsortedlist link = new Doublylinkedsortedlist();
-			//put in back; new tail
-			link.data = newValue; //set data value
-			link.prev = tail;
-			tail.next = link;
 
-			tail = link; //set new tail;
-
-			System.out.println("inserted back");
-			System.out.println(tail.data.toString());
-		}
-
-		*/
 	}
 	
 	//Return the entire list as a multi-line String

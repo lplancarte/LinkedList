@@ -58,10 +58,10 @@ class Main{
 		HurricaneRowData test2 = new HurricaneRowData(1980,200,2,2,2);
 		HurricaneRowData test3 = new HurricaneRowData(1990,300,3,3,3);
 		HurricaneRowData test4 = new HurricaneRowData(2000,400,4,4,4);
-		data.insert(test1);
 		data.insert(test2);
-		data.insert(test3);
 		data.insert(test4);
+		data.insert(test3);
+		data.insert(test1);
 		System.out.println(data.toString());
 
 	}//end main()
