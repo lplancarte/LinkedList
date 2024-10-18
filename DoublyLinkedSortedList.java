@@ -109,10 +109,12 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 			System.out.println("Head Added");
 			System.out.println(head.data.toString());
 		}else{
-			//Scroll to the end of the list to add
+			//set up pointer to head; get Ace Index from head to compare
+			//to newAce
 			DoublyLinkedSortedList current = head;
 			int newAce = link.data.getAceIndex();
 			int curAce = current.data.getAceIndex();
+			
 			if(newAce < curAce){ //place at front
 				while(current.prev != null){
 					current = current.prev;
@@ -123,6 +125,45 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 				head = link;
 				System.out.println("NEW HEAD: "+head.data.toString());
 
+//larger than head but smaller than tail; lies in between
+			}else if(newAce > curAce && newAce < getLast().data.getAceIndex()){ 
+			//	System.out.println("LAST: "+getLast().data.getAceIndex());
+			//	System.out.println("CURRENTBW: "+current.data.toString());
+				while(current.data.getAceIndex() < newAce){
+					current = current.next;
+				}
+			/*	System.out.println("c.prev: "+
+					current.prev.data.toString());
+
+				System.out.println("c: "+
+					current.data.toString());
+				*/
+				//current.prev.next = link;
+				try{
+					if(current.prev.next != null){
+						current.prev.next = link;
+						link.next = current;
+					}//else{
+						//current.prev.next is null
+						//current.prev = link;
+						//link.next = current;
+					//}
+				}catch(Exception e){current.prev = link;
+						link.next = current;};
+
+
+				current.prev = link;
+				link.next = current;
+
+				//check if link is now tail
+		//		if(link.next != null){
+		//			link.next.prev = link;
+		//		}
+
+				printInsert(newAce);
+				System.out.println(link.data.toString());
+
+
 			}else{ //place at end
 				while(current.next != null){
 					current = current.next;
@@ -130,11 +171,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 				current.next = link;
 				link.prev = current;
 			}
-			System.out.println("newAce: "+newAce);
-			
-			
-			//head sets itself as the next node 
-			//if head was by itself
+
 
 			//ADD AT THE END
 			//we are now at the tail
@@ -145,8 +182,6 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 			//current.prev = link;
 			//link.next = current;
 
-			System.out.println("Inserted");
-			System.out.println(link.data.toString());
 			/**	recap: we check to see if we have a list, by checking
 				for a head. if one is not found, set it as a new object.
 				(this lives on the heap?)
@@ -160,6 +195,12 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 		}
 
 
+	}
+
+	//Debugging tool, tracking what was inserted
+	public void printInsert(int newAce){
+		System.out.println("newAce: "+newAce);
+		System.out.println("Inserted");
 	}
 	
 	//Return the entire list as a multi-line String

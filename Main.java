@@ -58,10 +58,24 @@ class Main{
 		HurricaneRowData test2 = new HurricaneRowData(1980,200,2,2,2);
 		HurricaneRowData test3 = new HurricaneRowData(1990,300,3,3,3);
 		HurricaneRowData test4 = new HurricaneRowData(2000,400,4,4,4);
+
+		HurricaneRowData test5 = new HurricaneRowData(1975,150,1,1,1);
+		HurricaneRowData test6 = new HurricaneRowData(1985,270,2,2,2);
+		HurricaneRowData test7 = new HurricaneRowData(1996,350,3,3,3);
+		HurricaneRowData test8 = new HurricaneRowData(2008,600,4,4,4);
+
 		data.insert(test2);
 		data.insert(test4);
 		data.insert(test3);
 		data.insert(test1);
+		data.insert(test5);
+		data.insert(test8);
+		data.insert(test7);
+		data.insert(test6);
+		/*data.insert(test6);
+		data.insert(test8);
+		data.insert(test5);
+		data.insert(test7);*/
 		System.out.println(data.toString());
 
 	}//end main()
