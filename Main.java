@@ -52,8 +52,11 @@ class Main{
 		//displayMaxYearToTerminal();
 		System.out.println("Results saved as " +outputFile);
 		printOutputFile();
-		//System.out.println(data.toString());
+
+		
+		System.out.println(data.toString());
 		System.out.println("Thank you. Goodbye\n");
+		/**TESTING
 		HurricaneRowData test1 = new HurricaneRowData(1970,100,1,1,1);
 		HurricaneRowData test2 = new HurricaneRowData(1980,200,2,2,2);
 		HurricaneRowData test3 = new HurricaneRowData(1990,300,3,3,3);
@@ -68,15 +71,12 @@ class Main{
 		data.insert(test4);
 		data.insert(test3);
 		data.insert(test1);
-		data.insert(test5);
-		data.insert(test8);
-		data.insert(test7);
 		data.insert(test6);
-		/*data.insert(test6);
 		data.insert(test8);
 		data.insert(test5);
-		data.insert(test7);*/
-		System.out.println(data.toString());
+		data.insert(test7);
+		System.out.println(data.toString());*/
+		
 
 	}//end main()
 
@@ -147,7 +147,7 @@ class Main{
 					);
 				//System.out.println(hrd.toString()); //Debug line
 				hurricaneList.add(hrd); //add object to list
-				//data.insert(hrd); //add object to DoublyLinkedSortedList
+				data.insert(hrd); //add object to DoublyLinkedSortedList
 			}
 			maxAceIndexYear = new Analyzer(hurricaneList); //Analyze data
 		}catch(Exception e){};
