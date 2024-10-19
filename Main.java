@@ -36,7 +36,7 @@ class Main{
 	static private ArrayList<HurricaneRowData> hurricaneList = null;
 	static private DoublyLinkedSortedList data = new DoublyLinkedSortedList();
 
-	static private Analyzer maxAceIndexYear = null;
+	//static private Analyzer maxAceIndexYear = null;
 	static private String inputFileDefault = "ace.csv";
 	static private String outputFile = "results.txt";
 	
@@ -47,9 +47,10 @@ class Main{
 		}else{
 			processFile(inputFile);
 		}
-		int year = findMaxAceIndexYear(hurricaneList);
+		//int year = findMaxAceIndexYear(hurricaneList);
+		int year = findMaxAceIndexYear();
 		System.out.println("Year with Maximum Ace Index via method:" + year);
-		//displayMaxYearToTerminal();
+		displayMaxYearToTerminal();
 		System.out.println("Results saved as " +outputFile);
 		printOutputFile();
 
@@ -126,7 +127,7 @@ class Main{
 	*/
 	static private void processFile(File inputFile){
 		String line = "";
-		hurricaneList = new ArrayList<HurricaneRowData>();
+		//hurricaneList = new ArrayList<HurricaneRowData>();
 		HurricaneRowData hrd = null;
 		try{
 			Scanner reader = new Scanner(inputFile);
@@ -146,10 +147,10 @@ class Main{
 						Integer.parseInt(lineData[4])
 					);
 				//System.out.println(hrd.toString()); //Debug line
-				hurricaneList.add(hrd); //add object to list
+				//hurricaneList.add(hrd); //add object to list
 				data.insert(hrd); //add object to DoublyLinkedSortedList
 			}
-			maxAceIndexYear = new Analyzer(hurricaneList); //Analyze data
+			//maxAceIndexYear = new Analyzer(hurricaneList); //Analyze data
 		}catch(Exception e){};
 
 	}//end processFile()
@@ -159,10 +160,16 @@ class Main{
 	*Analyzer object maxAceIndexYear to display analyzed data.
 	*/
 	static private void displayMaxYearToTerminal(){
+		DoublyLinkedSortedList pointerLink = data.getFirst();
+		HurricaneRowData maxData = pointerLink.getValue();
+		int maxYear = maxData.getYear();
+		int maxAceIndex = maxData.getAceIndex();
+
 		System.out.println("\nResults:\nMax Ace Value Year: "+
-			maxAceIndexYear.getMaxAceIndexYear()
+			maxYear
 		);
-		System.out.println("Max Ace Value: "+ maxAceIndexYear.getMaxAceIndex()
+		System.out.println("Max Ace Value: "+
+			maxAceIndex
 		);
 	}
 
@@ -174,12 +181,15 @@ class Main{
 	static private void printOutputFile(){
 		try{
 			PrintWriter out = new PrintWriter(new FileWriter(outputFile));
-			out.print("Year with Maximum Ace Index\n");
-			out.print(
-				hurricaneList.
-				get(maxAceIndexYear.getMaxAceIndexPosition()).
-				toString()
-				);
+			out.print("Year with Maximum Ace Index: " +
+				data.getFirst().getValue().getYear()+ "\n"
+			);
+			//out.print(
+			//	hurricaneList.
+			//	get(maxAceIndexYear.getMaxAceIndexPo1sition()).
+			//	toString()
+			//	);
+			out.print(data.toString());
 			out.close();
 		}catch(Exception e){}
 	}
@@ -193,9 +203,10 @@ class Main{
 			  ace index in an arraylist of HRD objects. Creates a new Analyzer
 			 object.
 	*/
-	static private int findMaxAceIndexYear(ArrayList<HurricaneRowData> hrd){
-		Analyzer maxYear = new Analyzer(hrd);
-		return maxYear.getMaxAceIndexYear();
+	static private int findMaxAceIndexYear(){
+		//Analyzer maxYear = new Analyzer(hrd);
+		DoublyLinkedSortedList link = data.getFirst();
+		return link.getValue().getYear();
 	}//end findMaxAceIndexYear()
 
 

@@ -99,8 +99,8 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 			//check if head is null
 		if(head.data == null){
 			head = link;
-			System.out.println("Head Added");
-			System.out.println(head.data.toString());
+			//System.out.println("Head Added");
+			//System.out.println(head.data.toString());
 		}else{
 			//set up pointer to head; get Ace Index from head to compare
 			//to newAce
@@ -129,7 +129,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 				while(current.data.getAceIndex() > newAce){
 					current = current.next;
 				}
-				//set current to one before
+				//set links
 //				System.out.println("Curr: "+current.data.toString());
 //				System.out.println("Prev: "+current.prev.data.toString());	
 				current.prev.next = link;
@@ -137,10 +137,6 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 				
 				current.prev = link;
 				link.next = current;
-
-				
-
-				
 
 			}
 		}
@@ -158,9 +154,27 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface
 	public String toString(){
 		String toConsole= "";
 		String newLine;
-		String header = "All data in order of Ace:\n";
+		String description = "All data in order of Ace:\n";
 		DoublyLinkedSortedList iteratorFwd = head;
+		toConsole = toConsole.concat(description);
+		String header = String.format(
+		"%8s %8s %9s %8s %9s",
+		"YEAR",
+		"ACE",
+		"TSTM",
+		"ALL",
+		"MAJ\n"
+		);
+		String underline = String.format(
+		"%8s %8s %9s %8s %9s",
+		"----",
+		"---",
+		"----",
+		"---",
+		"---\n"
+		);
 		toConsole = toConsole.concat(header);
+		toConsole = toConsole.concat(underline);
 		while(iteratorFwd != null){
 			newLine = iteratorFwd.data.toString() + "\n";
 			toConsole = toConsole.concat(newLine);

@@ -63,7 +63,7 @@ class HurricaneRowData{
 	@Override
 	public String toString(){
 		return String.format
-		("%8d,%8d,%8d,%8d,%8d",
+		("%8d %8d %8d %8d %8d",
 		getYear(),
 		getAceIndex(),
 		getNumTropicalStorms(),
