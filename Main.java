@@ -3,6 +3,10 @@ Programmer: Lucio Plancarte
 Created: 09 SEP 2024
 Modified: 10 SEP 2024
 			Added Analyzer object to hold analyzed data
+Modified: 20 Oct 2024
+			Removed the use of ArrayList<HurricaneRowData> in favor
+			of a doubly linked list. Removed the use of the Analyzer
+			class.
 Description: Reads in file 'ace.csv' to create ArrayList of HurricaneRowData
 			 objects. Returns to terminal the year with MAX ACE VALUE. Also
 			 creates text file named 'results.txt'.
@@ -13,16 +17,19 @@ import java.io.*;
 import java.nio.file.*;
 /**
 Program creates HurricaneRowData objects by reading in data from a csv file.
-These objects are then used to populate an ArrayList. A maximum index value 
-is found and reported alongside the year. These results are also printed to an 
-output text file.
+These objects are then used to populate a Doubly Linked List using the
+DoublyLinkedSortedList class. These objects are sorted when inserted.
+A maximum index value is found and reported alongside the year.
+These results are also printed to an output text file.
+
 NOTE
 A default file is provided as ace.csv but alternative files can be used by
 providing the name of the file as an argument.
 
 Utilized Classes:
 HurricaneRowData - Objects of Hurricane Data
-Analyzer - Holds Analyzed Data from ArrayList of Hurricane Row Data objects
+LLP removed: Analyzer - Holds Analyzed Data from ArrayList of Hurricane Row Data 
+objects
 
 @hurricaneList -ArrayList holds HurricaneRowData objects
 @maxAceIndexYear - Analyzer object that holds analyzed data. uses hurricaneList
@@ -122,8 +129,8 @@ class Main{
 	*It is assumed that this file has both:
 	*1)A header line. 2)At least one row of data.
 	*Iterates through the lines of a csv to create HurricaneRowData objects
-	*These objects are then placed into an ArrayList. A maximum Ace index
-	*position is also found and held by the class' Analyzer object.
+	*These objects are then placed into a Doubly Linked Sorted List. A maximum
+	*Ace index position is also found and held by the class' Analyzer object.
 	*/
 	static private void processFile(File inputFile){
 		String line = "";
@@ -156,8 +163,9 @@ class Main{
 	}//end processFile()
 
 	/** 	displayMaxYearToTerminal()
-	*displays the Maximum Ace Index and corresponding year. Uses class member
-	*Analyzer object maxAceIndexYear to display analyzed data.
+	*displays the Maximum Ace Index and corresponding year.
+	*Returns the first item in sorted list from DoublySortedList class
+	*display results of maximum ace index and corresponding year.
 	*/
 	static private void displayMaxYearToTerminal(){
 		DoublyLinkedSortedList pointerLink = data.getFirst();
@@ -175,7 +183,7 @@ class Main{
 
 	/**		printOutputFile()
 	*prints the results of the maximum ace index and associated year to the
-	*output file. Uses PrintWriter and FileWriter and HurricaneRowData 
+	*output file. Uses PrintWriter and FileWriter and DoublyLinkedSortedList 
 	*toString() method.
 	*/
 	static private void printOutputFile(){
@@ -194,11 +202,9 @@ class Main{
 		}catch(Exception e){}
 	}
 
-	/**REQUIRED		findMaxAceIndexYear(ArrayList<HurricaneRowData> hrd)
-	*Takes in an arraylist of hurricane row data. Creates and uses a new
-	*Analyzer object to find the maximum ace value year within that arraylist.
+	/**REQUIRED		findMaxAceIndexYear()
+	*Uses DoublyLinkedSortedList class method getFirst() to find max ace index
 	*Does not use class member object maxAceIndexYear.
-	@param hrd - ArrayList of HurricanRowData objects
 	@returns - the year of the HurricaneRowData object with the highest
 			  ace index in an arraylist of HRD objects. Creates a new Analyzer
 			 object.
